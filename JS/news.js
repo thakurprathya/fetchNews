@@ -1,6 +1,3 @@
-// https://www.geeksforgeeks.org/how-to-access-variables-from-another-file-using-javascript/
-//above links method 1 works for including js data to other
-
 console.log("Welcome to News Site");
 document.getElementById("searchtxt").value=""; // initializing searchbtn on reloading
 let news_accordion_list=document.getElementById("news_accordion_list");  //grabing the news container list
@@ -8,8 +5,8 @@ let news_accordion_list=document.getElementById("news_accordion_list");  //grabi
 //creating a get request
 const xhr=new XMLHttpRequest();
 xhr.open("GET", `https://newscafapi.p.rapidapi.com/apirapid/news/world/`, true);  //asynchronus
-xhr.setRequestHeader("X-RapidAPI-Key", Keys.ApiKey); //setting header Keys is diff module included in index.html
-xhr.setRequestHeader("X-RapidAPI-Host", Keys.ApiHost);  //setting header
+xhr.setRequestHeader("X-RapidAPI-Key", config.ApiKey); //setting header Keys is diff module included in index.html
+xhr.setRequestHeader("X-RapidAPI-Host", config.ApiHost);  //setting header
 xhr.onload= function(){
     if(this.status===200){   //status 200 stands for response okay, it checks for errors, file searched fetched or not
         let json=JSON.parse(this.responseText);
