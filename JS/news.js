@@ -1,34 +1,31 @@
-//da13ea5543a347ca85492be03bdebb76
+// https://www.geeksforgeeks.org/how-to-access-variables-from-another-file-using-javascript/
+//above links method 1 works for including js data to other
+
 console.log("Welcome to News Site");
-
-// initializing searchbtn on reloading
-document.getElementById("searchtxt").value="";
-
-//initializing the api parameters
-let source="the-times-of-india";
-let apikey="da13ea5543a347ca85492be03bdebb76"
+document.getElementById("searchtxt").value=""; // initializing searchbtn on reloading
 let news_accordion_list=document.getElementById("news_accordion_list");  //grabing the news container list
 
 //creating a get request
 const xhr=new XMLHttpRequest();
-xhr.open("GET", `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${apikey}`, true);  //asynchronus
+xhr.open("GET", `https://newscafapi.p.rapidapi.com/apirapid/news/world/`, true);  //asynchronus
+xhr.setRequestHeader("X-RapidAPI-Key", Keys.ApiKey); //setting header Keys is diff module included in index.html
+xhr.setRequestHeader("X-RapidAPI-Host", Keys.ApiHost);  //setting header
 xhr.onload= function(){
     if(this.status===200){   //status 200 stands for response okay, it checks for errors, file searched fetched or not
         let json=JSON.parse(this.responseText);
-        let articles=json.articles;  //retreiving only articles from whole api
-        console.log(articles);
+        console.log(json)
         let newsHTML="";
-        articles.forEach(function(element, index){
+        json.forEach(function(element, index){
             let news_card=`
             <div id="${index}">
                 <p class="news-title"><button class="btn-secondary btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample${index}" 
                 aria-expanded="false" aria-controls="collapseExample${index}" style="margin-left: 2vw; margin-top: .5vh;">
-                    ${element["title"]}
+                    ${element.title}
                 </button></p>
                 <div class="collapse" id="collapseExample${index}" style="margin-left: 4vw; margin-right: 5vw;">
                     <div class="card card-body">
-                        <b class="news-description">${element["description"]}</b> <br> ${element["content"]} <br> 
-                        <a href="${element["url"]}">Read more here</a>
+                        <b class="news-description">${element.title}</b> <br> ${element.content} <br> 
+                        <a href="${element.source_url}">Read more here</a>
                     </div>
                 </div>
             </div>           
